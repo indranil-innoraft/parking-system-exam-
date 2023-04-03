@@ -1,0 +1,16 @@
+{
+    "name": "indranil/local-notepad-app.com",
+    "autoload": {
+        "classmap": [
+            "/database/ParkingDatabase.php",
+            "/config/databaseConfig.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "indranil-innoraft",
+            "email": "indranil.roy@innoraft.com"
+        }
+    ],
+    "require": {}
+}
