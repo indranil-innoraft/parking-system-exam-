@@ -1,4 +1,7 @@
 <?php
+/**
+ * Perform operation related to parking system.
+ */
 class ParkingDatabase extends mysqli {
   /**
    * Storing the connection to the databse.
@@ -17,7 +20,7 @@ class ParkingDatabase extends mysqli {
    * @return object
    *
    */
-  public function __construct (string $hostName, string $userName, string $password, string $databaseName) {
+  public function __construct(string $hostName, string $userName, string $password, string $databaseName) {
     return $this->connection = new mysqli($hostName, $userName, $password, $databaseName);
   }
 
@@ -34,7 +37,18 @@ class ParkingDatabase extends mysqli {
    * @return object
    *
    */
-  public function assignSlotForParking (int $slotNumber, string $vechileNumber, string $vechileType, string $entryTime, string $exitTime, string $status) {
+  public function assignSlotForParking(int $slotNumber,
+  string $vechileNumber,
+  string $vechileType,
+  string $entryTime,
+  string $exitTime,
+  string $status) {
+
+    $slotNumber = $this->connection->real_escape_string($slotNumber);
+    $vechileType = $this->connection->real_escape_string($vechileType);
+    $entryTime = $this->connection->real_escape_string($entryTime);
+    $exitTime = $this->connection->real_escape_string($exitTime);
+
     $sql = "insert into
     booking (
       vechile_number,
@@ -56,16 +70,16 @@ class ParkingDatabase extends mysqli {
     return $this->connection->query($sql);
   }
 
-   /**
-    * Get numbers of solts available.
-    *
-    * @return object
-    *
-    */
-   public function numberOfSlotsAvailable () {
-     $sql = "select * from booking";
-     return (200 - $this->connection->query($sql)->num_rows);
-   }
+  /**
+   * Get numbers of solts available.
+   *
+   * @return object
+   *
+   */
+  public function numberOfSlotsAvailable() {
+    $sql = "select * from booking";
+    return (200 - $this->connection->query($sql)->num_rows);
+  }
 
   /**
    * Get booking details.
@@ -83,10 +97,10 @@ class ParkingDatabase extends mysqli {
    *
    * @param string $vechileNumber
    *
-   * @return [type]
+   * @return boolean
    *
    */
-  public function isVechileAvailable (string $vechileNumber) {
+  public function isVechileAvailable(string $vechileNumber) {
     $sql = "select * from booking where vechile_number like $vechileNumber";
     if ($this->connection->query($sql)->num_rows != 0) {
       return true;
@@ -104,7 +118,7 @@ class ParkingDatabase extends mysqli {
    * @return object
    *
    */
-  public function getBookingDetails () {
+  public function getBookingDetails() {
     $sql = "select * from booking";
     return ($this->connection->query($sql)->fetch_all(MYSQLI_ASSOC));
   }
@@ -117,9 +131,10 @@ class ParkingDatabase extends mysqli {
    * @return object
    *
    */
-  public function changeStatus (string $vechileNumber) {
+  public function changeStatus(string $vechileNumber) {
+    $vechileNumber = $this->connection->real_escape_string($vechileNumber);
     $sql = " update booking set status = 0 where vechile_number like $vechileNumber";
     return ($this->connection->query($sql));
   }
-
 }
+?>

@@ -8,11 +8,11 @@ $(document).ready(function performAllFunctions() {
 
     $.ajax({
       type: "POST",
-      url: "generateTicket.php",
+      url: "/generateticket",
       data: formData,
       dataType: "json",
       encode: true,
-      success: function getResponse($response){
+      success: function getResponse($response) {
         console.log($response);
       }
     });
@@ -24,7 +24,7 @@ $(document).ready(function performAllFunctions() {
     };
     $.ajax({
       type: "POST",
-      url: "changeStatusOfBooking.php",
+      url: "/relasevechile",
       data: formData,
       dataType: "json",
       encode: true,

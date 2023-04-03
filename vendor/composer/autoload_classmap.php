@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'ParkingDatabase' => $baseDir . '/database/ParkingDatabase.php',
+    'ParkingDatabase' => $baseDir . '/application/models/ParkingDatabase.php',
 );
